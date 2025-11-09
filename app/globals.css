@@ -2,13 +2,19 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1e3a8a;
+  --foreground: #003D7A;
+  --lux-blue: #00A3E0;
+  --lux-red: #ED1C24;
+  --lux-blue-dark: #003D7A;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
+  --color-lux-blue: var(--lux-blue);
+  --color-lux-red: var(--lux-red);
+  --color-lux-blue-dark: var(--lux-blue-dark);
 }
 
 body {

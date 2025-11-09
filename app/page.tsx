@@ -1,7 +1,7 @@
 import Header from "./components/Header";
-import Hero from "./components/Hero";
+import HeroWithForm from "./components/HeroWithForm";
 import ServicesGrid from "./components/ServicesGrid";
-import EligibilityForm from "./components/EligibilityForm";
+import TrustBanner from "./components/TrustBanner";
 import AidExamples from "./components/AidExamples";
 import HowItWorks from "./components/HowItWorks";
 import RenovationServices from "./components/RenovationServices";
@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Hero />
+      <HeroWithForm />
       <ServicesGrid />
-      <EligibilityForm />
+      <TrustBanner />
       <AidExamples />
       <HowItWorks />
       <RenovationServices />

@@ -42,7 +42,7 @@ export default function WhyUs() {
     <section className="bg-gray-50 py-20">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 text-3xl font-bold text-blue-900">
+          <h2 className="mb-4 text-3xl font-bold" style={{ color: '#003D7A' }}>
             Pourquoi faire appel à AidesEnergie.lu ?
           </h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-700">
@@ -61,7 +61,7 @@ export default function WhyUs() {
               whileHover={{ y: -10 }}
               className="flex flex-col items-center rounded-lg bg-white p-8 text-center shadow-md transition hover:shadow-xl"
             >
-              <div className="mb-4 text-blue-900">
+              <div className="mb-4" style={{ color: '#00A3E0' }}>
                 {benefit.icon}
               </div>
               <h3 className="text-lg font-semibold text-gray-900">
@@ -79,12 +79,13 @@ export default function WhyUs() {
           className="mt-12 text-center"
         >
           <motion.a
-            href="#eligibility"
+            href="#"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block rounded-lg bg-blue-900 px-8 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-blue-800"
+            className="inline-block rounded-lg px-8 py-4 text-lg font-semibold text-white shadow-lg transition"
+            style={{ backgroundColor: '#003D7A' }}
           >
-            Appel Gratuit
+            Tester mon éligibilité
           </motion.a>
         </motion.div>
       </div>

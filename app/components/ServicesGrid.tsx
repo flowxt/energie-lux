@@ -7,18 +7,18 @@ export default function ServicesGrid() {
   const services = [
     {
       title: "Panneaux photovoltaïques",
-      image: "/renov.png",
+      image: "/solaire.jpg",
       alt: "Installation de panneaux photovoltaïques"
     },
     {
       title: "Pompe à chaleur",
-      image: "/moitie-renov.png",
+      image: "/pompe.jpg",
       alt: "Installation de pompe à chaleur"
     },
     {
-      title: "Isolation",
-      image: "/dpe.jpg",
-      alt: "Travaux d'isolation"
+      title: "Travaux de rénovation",
+      image: "/travaux3.jpeg",
+      alt: "Travaux de rénovation énergétique"
     }
   ];
 
@@ -45,7 +45,7 @@ export default function ServicesGrid() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-blue-900">
+                <h3 className="text-xl font-semibold" style={{ color: '#003D7A' }}>
                   {service.title}
                 </h3>
               </div>

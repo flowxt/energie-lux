@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative bg-linear-to-br from-blue-900 via-blue-800 to-blue-900 py-20 text-white">
+    <section className="relative py-20 text-white" style={{ background: 'linear-gradient(135deg, #003D7A 0%, #00A3E0 100%)' }}>
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           <motion.div
@@ -15,7 +15,7 @@ export default function Hero() {
             className="space-y-8"
           >
             <h1 className="text-4xl font-bold leading-tight lg:text-5xl">
-              Bénéficier jusqu'à <span className="text-green-400">100% d'aide</span> selon votre situation pour votre installation !
+              Bénéficier jusqu'à <span style={{ color: '#ED1C24' }}>100% d'aide</span> selon votre situation pour votre installation !
             </h1>
             
             <div className="space-y-4 text-lg">
@@ -24,19 +24,19 @@ export default function Hero() {
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-green-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 mt-1 shrink-0" style={{ color: '#ffffff' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Aides de l'État (klima bonus)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-green-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 mt-1 shrink-0" style={{ color: '#ffffff' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Aides du ministère du logement (topup social)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-green-400 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 mt-1 shrink-0" style={{ color: '#ffffff' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Aides de votre commune (Eco prêt)</span>
@@ -54,7 +54,8 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-block rounded-lg bg-green-500 px-8 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-green-600"
+              className="inline-block rounded-lg px-8 py-4 text-lg font-semibold text-white shadow-lg transition"
+              style={{ backgroundColor: '#ED1C24' }}
             >
               Tester mon éligibilité
             </motion.a>

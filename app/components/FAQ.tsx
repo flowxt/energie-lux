@@ -35,7 +35,7 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="mb-4 text-3xl font-bold text-blue-900">
+          <h2 className="mb-4 text-3xl font-bold" style={{ color: '#003D7A' }}>
             Questions fréquentes
           </h2>
           <p className="text-lg text-gray-700">
@@ -51,7 +51,10 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="overflow-hidden rounded-lg border-2 border-gray-200 bg-white shadow-sm transition hover:border-blue-300"
+              className="overflow-hidden rounded-lg border-2 border-gray-200 bg-white shadow-sm transition"
+              style={{ '--hover-border': '#00A3E0' } as React.CSSProperties}
+              onMouseEnter={(e) => e.currentTarget.style.borderColor = '#00A3E0'}
+              onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e7eb'}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -63,7 +66,8 @@ export default function FAQ() {
                 <motion.svg
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
-                  className="h-6 w-6 shrink-0 text-blue-900"
+                  className="h-6 w-6 shrink-0"
+                  style={{ color: '#00A3E0' }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -107,10 +111,11 @@ export default function FAQ() {
             Vous avez d'autres questions ? Contactez-nous !
           </p>
           <a
-            href="#eligibility"
-            className="inline-block rounded-lg bg-green-500 px-8 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-green-600"
+            href="#"
+            className="inline-block rounded-lg px-8 py-4 text-lg font-semibold text-white shadow-lg transition"
+            style={{ backgroundColor: '#ED1C24' }}
           >
-            Demander un appel gratuit
+            Tester mon éligibilité
           </a>
         </motion.div>
       </div>

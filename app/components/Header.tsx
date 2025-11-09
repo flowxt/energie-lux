@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -8,7 +9,7 @@ export default function Header() {
   const navigation = [
     { name: "Accueil", href: "#" },
     { name: "Services", href: "#services" },
-    { name: "Éligibilité", href: "#eligibility" },
+    { name: "Exemples d'aides", href: "#exemples" },
     { name: "Comment ça marche", href: "#how-it-works" },
     { name: "FAQ", href: "#faq" },
   ];
@@ -17,9 +18,10 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white shadow-md">
       <nav className="container mx-auto flex items-center justify-between px-6 py-4 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="text-2xl font-bold text-blue-900">
-              AidesEnergie<span className="text-green-500">.lu</span>
+          <a href="#" className="-m-1.5 flex items-center gap-2 p-1.5">
+            <Image src="/logo.png" alt="AidesEnergie.lu" width={40} height={40} className="h-10 w-auto" />
+            <span className="text-2xl font-bold" style={{ color: '#003D7A' }}>
+              AidesEnergie<span style={{ color: '#ED1C24' }}>.lu</span>
             </span>
           </a>
         </div>
@@ -42,7 +44,7 @@ export default function Header() {
             <a
               key={item.name}
               href={item.href}
-              className="text-sm font-semibold leading-6 text-gray-900 transition hover:text-blue-900"
+              className="text-sm font-semibold leading-6 text-gray-900 transition hover:text-[#00A3E0]"
             >
               {item.name}
             </a>
@@ -51,10 +53,13 @@ export default function Header() {
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
-            href="#eligibility"
-            className="rounded-lg bg-green-500 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-green-600"
+            href="#"
+            className="rounded-lg px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition"
+            style={{ backgroundColor: '#ED1C24' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#c91820'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ED1C24'}
           >
-            Appel gratuit
+            Tester mon éligibilité
           </a>
         </div>
       </nav>
@@ -74,11 +79,12 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="#eligibility"
-              className="mt-4 block rounded-lg bg-green-500 px-3 py-2.5 text-center text-base font-semibold text-white hover:bg-green-600"
+              href="#"
+              className="mt-4 block rounded-lg px-3 py-2.5 text-center text-base font-semibold text-white"
+              style={{ backgroundColor: '#ED1C24' }}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Appel gratuit
+              Tester mon éligibilité
             </a>
           </div>
         </div>

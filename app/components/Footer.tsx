@@ -1,18 +1,18 @@
 export default function Footer() {
   return (
-    <footer className="bg-blue-900 py-12 text-white">
+    <footer className="py-12 text-white" style={{ backgroundColor: '#003D7A' }}>
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
             <h3 className="mb-4 text-xl font-bold">AidesEnergie.lu</h3>
-            <p className="text-blue-200">
+            <p style={{ color: '#CCF0FF' }}>
               Votre partenaire de confiance pour bénéficier des aides énergétiques au Luxembourg.
             </p>
           </div>
 
           <div>
             <h4 className="mb-4 text-lg font-semibold">Services</h4>
-            <ul className="space-y-2 text-blue-200">
+            <ul className="space-y-2" style={{ color: '#CCF0FF' }}>
               <li>Panneaux photovoltaïques</li>
               <li>Pompe à chaleur</li>
               <li>Isolation thermique</li>
@@ -22,7 +22,7 @@ export default function Footer() {
 
           <div>
             <h4 className="mb-4 text-lg font-semibold">Contact</h4>
-            <ul className="space-y-2 text-blue-200">
+            <ul className="space-y-2" style={{ color: '#CCF0FF' }}>
               <li>Email : contact@aidesenergie.lu</li>
               <li>Téléphone : +352 XX XX XX XX</li>
               <li>Luxembourg</li>
@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-blue-800 pt-8 text-center text-blue-200">
+        <div className="mt-8 pt-8 text-center" style={{ borderTop: '1px solid #00A3E0', color: '#CCF0FF' }}>
           <p>&copy; {new Date().getFullYear()} AidesEnergie.lu - Tous droits réservés</p>
         </div>
       </div>

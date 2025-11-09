@@ -44,7 +44,7 @@ export default function RenovationServices() {
   ];
 
   return (
-    <section className="bg-linear-to-br from-blue-900 to-blue-800 py-20 text-white">
+    <section className="py-20 text-white" style={{ background: 'linear-gradient(135deg, #003D7A 0%, #00A3E0 100%)' }}>
       <div className="container mx-auto px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-3xl font-bold">
@@ -78,7 +78,7 @@ export default function RenovationServices() {
               whileHover={{ scale: 1.05 }}
               className="rounded-lg bg-white/10 p-6 backdrop-blur-sm transition hover:bg-white/20"
             >
-              <div className="mb-4 text-green-400">
+              <div className="mb-4" style={{ color: '#ED1C24' }}>
                 {service.icon}
               </div>
               <h3 className="mb-3 text-xl font-semibold">

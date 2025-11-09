@@ -25,14 +25,16 @@ export default function AidExamples() {
   ];
 
   return (
-    <section className="bg-gray-50 py-20">
+    <section id="exemples" className="bg-gray-50 py-20">
       <div className="container mx-auto px-6 lg:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12 text-center text-3xl font-bold text-blue-900"
+
+          className="mb-12 text-center text-3xl font-bold"
+          style={{ color: '#003D7A' }}
         >
           Exemples d'aides obtenues
         </motion.h2>
@@ -48,7 +50,7 @@ export default function AidExamples() {
               whileHover={{ scale: 1.03 }}
               className="overflow-hidden rounded-xl bg-white shadow-lg transition hover:shadow-xl"
             >
-              <div className={`${example.color === 'green' ? 'bg-green-500' : 'bg-blue-500'} px-8 py-6`}>
+              <div className="px-8 py-6" style={{ backgroundColor: example.color === 'green' ? '#ED1C24' : '#00A3E0' }}>
                 <div className="text-6xl font-bold text-white">
                   {example.percentage}
                 </div>
@@ -80,10 +82,19 @@ export default function AidExamples() {
                 </div>
 
                 <a
-                  href="#eligibility"
-                  className="mt-6 inline-block rounded-lg border-2 border-blue-900 px-6 py-3 font-semibold text-blue-900 transition hover:bg-blue-900 hover:text-white"
+                  href="#"
+                  className="mt-6 inline-block rounded-lg border-2 px-6 py-3 font-semibold transition"
+                  style={{ borderColor: '#003D7A', color: '#003D7A' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#003D7A';
+                    e.currentTarget.style.color = 'white';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#003D7A';
+                  }}
                 >
-                  Appel Gratuit
+                  Tester mon éligibilité
                 </a>
               </div>
             </motion.div>
