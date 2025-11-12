@@ -125,33 +125,33 @@ export default function Header() {
           {/* Première série de messages */}
           <div className="inline-flex items-center">
             {promotionalMessages.map((msg, index) => (
-              <span key={`msg-1-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+              <span key={`msg-1-${index}`} className={`text-sm md:text-base font-semibold mx-8 ${index % 2 === 0 ? 'text-white' : 'text-white'}`}>
                 {msg.text}{" "}
-                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                <span className={`text-xl font-bold ${index % 2 === 0 ? 'text-red-400' : 'text-white'}`}>{msg.highlight}</span>{" "}
                 {msg.suffix}
-                <span className="mx-4">•</span>
+                <span className="mx-4 text-yellow-300">•</span>
               </span>
             ))}
           </div>
           {/* Deuxième série (dupliquée pour effet boucle continue) */}
           <div className="inline-flex items-center">
             {promotionalMessages.map((msg, index) => (
-              <span key={`msg-2-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+              <span key={`msg-2-${index}`} className={`text-sm md:text-base font-semibold mx-8 ${index % 2 === 0 ? 'text-white' : 'text-white'}`}>
                 {msg.text}{" "}
-                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                <span className={`text-xl font-bold ${index % 2 === 0 ? 'text-red-400' : 'text-white'}`}>{msg.highlight}</span>{" "}
                 {msg.suffix}
-                <span className="mx-4">•</span>
+                <span className="mx-4 text-yellow-300">•</span>
               </span>
             ))}
           </div>
           {/* Troisième série (pour assurer la continuité) */}
           <div className="inline-flex items-center">
             {promotionalMessages.map((msg, index) => (
-              <span key={`msg-3-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+              <span key={`msg-3-${index}`} className={`text-sm md:text-base font-semibold mx-8 ${index % 2 === 0 ? 'text-white' : 'text-white'}`}>
                 {msg.text}{" "}
-                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                <span className={`text-xl font-bold ${index % 2 === 0 ? 'text-red-400' : 'text-white'}`}>{msg.highlight}</span>{" "}
                 {msg.suffix}
-                <span className="mx-4">•</span>
+                <span className="mx-4 text-yellow-300">•</span>
               </span>
             ))}
           </div>
