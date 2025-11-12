@@ -24,54 +24,6 @@ export default function Header() {
 
   return (
     <>
-      {/* Bandeau promotionnel défilant */}
-      <div className="bg-gradient-to-r from-blue-800 to-blue-900 py-3 overflow-hidden relative">
-        <motion.div
-          animate={{ x: [0, -2000] }}
-          transition={{ 
-            duration: 30, 
-            ease: "linear", 
-            repeat: Infinity,
-            repeatType: "loop"
-          }}
-          className="whitespace-nowrap flex"
-        >
-          {/* Première série de messages */}
-          <div className="inline-flex items-center">
-            {promotionalMessages.map((msg, index) => (
-              <span key={`msg-1-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
-                {msg.text}{" "}
-                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
-                {msg.suffix}
-                <span className="mx-4">•</span>
-              </span>
-            ))}
-          </div>
-          {/* Deuxième série (dupliquée pour effet boucle continue) */}
-          <div className="inline-flex items-center">
-            {promotionalMessages.map((msg, index) => (
-              <span key={`msg-2-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
-                {msg.text}{" "}
-                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
-                {msg.suffix}
-                <span className="mx-4">•</span>
-              </span>
-            ))}
-          </div>
-          {/* Troisième série (pour assurer la continuité) */}
-          <div className="inline-flex items-center">
-            {promotionalMessages.map((msg, index) => (
-              <span key={`msg-3-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
-                {msg.text}{" "}
-                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
-                {msg.suffix}
-                <span className="mx-4">•</span>
-              </span>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-      
       <header className="sticky top-0 z-50 bg-white shadow-md">
         {/* Bandeau avec drapeau et certification */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2">
@@ -157,6 +109,54 @@ export default function Header() {
         </div>
       )}
       </header>
+
+      {/* Bandeau promotionnel défilant - en dessous de la nav */}
+      <div className="bg-gradient-to-r from-blue-800 to-blue-900 py-3 overflow-hidden relative">
+        <motion.div
+          animate={{ x: [0, -2000] }}
+          transition={{ 
+            duration: 30, 
+            ease: "linear", 
+            repeat: Infinity,
+            repeatType: "loop"
+          }}
+          className="whitespace-nowrap flex"
+        >
+          {/* Première série de messages */}
+          <div className="inline-flex items-center">
+            {promotionalMessages.map((msg, index) => (
+              <span key={`msg-1-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+                {msg.text}{" "}
+                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                {msg.suffix}
+                <span className="mx-4">•</span>
+              </span>
+            ))}
+          </div>
+          {/* Deuxième série (dupliquée pour effet boucle continue) */}
+          <div className="inline-flex items-center">
+            {promotionalMessages.map((msg, index) => (
+              <span key={`msg-2-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+                {msg.text}{" "}
+                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                {msg.suffix}
+                <span className="mx-4">•</span>
+              </span>
+            ))}
+          </div>
+          {/* Troisième série (pour assurer la continuité) */}
+          <div className="inline-flex items-center">
+            {promotionalMessages.map((msg, index) => (
+              <span key={`msg-3-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+                {msg.text}{" "}
+                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                {msg.suffix}
+                <span className="mx-4">•</span>
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </>
   );
 }
