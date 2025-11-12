@@ -76,7 +76,9 @@ export default function Header() {
         {/* Bandeau avec drapeau et certification */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2">
           <div className="container mx-auto px-6 lg:px-8 flex items-center justify-center gap-3">
-            <Image src="/luxembourg.jpg" alt="Drapeau Luxembourg" width={40} height={27} className="rounded shadow-sm" />
+            <div className="bg-white rounded px-2 py-1 shadow-md">
+              <Image src="/lux.png" alt="Drapeau Luxembourg" width={40} height={27} />
+            </div>
             <span className="text-white text-sm font-semibold">Programme subventionné par l'État du Luxembourg</span>
           </div>
         </div>

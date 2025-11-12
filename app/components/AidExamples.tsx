@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function AidExamples() {
   const examples = [
@@ -27,17 +28,21 @@ export default function AidExamples() {
   return (
     <section id="exemples" className="bg-gray-50 py-20">
       <div className="container mx-auto px-6 lg:px-8">
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-
-          className="mb-12 text-center text-3xl font-bold"
-          style={{ color: '#003D7A' }}
+          className="mb-12 text-center"
         >
-          Exemples d'aides obtenues
-        </motion.h2>
+          <h2 className="text-3xl font-bold mb-4" style={{ color: '#003D7A' }}>
+            Exemples d'aides obtenues
+          </h2>
+          <div className="flex items-center justify-center gap-2 text-gray-600">
+            <Image src="/lux.png" alt="Luxembourg" width={28} height={19} />
+            <span className="text-sm font-semibold">Aides accordées au Luxembourg</span>
+          </div>
+        </motion.div>
 
         <div className="grid gap-8 lg:grid-cols-2">
           {examples.map((example, index) => (
