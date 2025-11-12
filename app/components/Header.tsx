@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,8 +15,72 @@ export default function Header() {
     { name: "FAQ", href: "#faq" },
   ];
 
+  const promotionalMessages = [
+    { text: "Jusqu'à", highlight: "11 200€ d'aides", suffix: "pour votre pompe à chaleur" },
+    { text: "Profitez des", highlight: "aides de l'État", suffix: "pour vos panneaux solaires" },
+    { text: "Bénéficiez d'aides", highlight: "exceptionnelles", suffix: "pour l'isolation de votre maison" },
+    { text: "Installation de", highlight: "borne de recharge", suffix: "avec aides de l'État" },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md">
+    <>
+      {/* Bandeau promotionnel défilant */}
+      <div className="bg-gradient-to-r from-blue-800 to-blue-900 py-3 overflow-hidden relative">
+        <motion.div
+          animate={{ x: [0, -2000] }}
+          transition={{ 
+            duration: 30, 
+            ease: "linear", 
+            repeat: Infinity,
+            repeatType: "loop"
+          }}
+          className="whitespace-nowrap flex"
+        >
+          {/* Première série de messages */}
+          <div className="inline-flex items-center">
+            {promotionalMessages.map((msg, index) => (
+              <span key={`msg-1-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+                {msg.text}{" "}
+                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                {msg.suffix}
+                <span className="mx-4">•</span>
+              </span>
+            ))}
+          </div>
+          {/* Deuxième série (dupliquée pour effet boucle continue) */}
+          <div className="inline-flex items-center">
+            {promotionalMessages.map((msg, index) => (
+              <span key={`msg-2-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+                {msg.text}{" "}
+                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                {msg.suffix}
+                <span className="mx-4">•</span>
+              </span>
+            ))}
+          </div>
+          {/* Troisième série (pour assurer la continuité) */}
+          <div className="inline-flex items-center">
+            {promotionalMessages.map((msg, index) => (
+              <span key={`msg-3-${index}`} className="text-white text-sm md:text-base font-semibold mx-8">
+                {msg.text}{" "}
+                <span className="text-xl font-bold">{msg.highlight}</span>{" "}
+                {msg.suffix}
+                <span className="mx-4">•</span>
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+      
+      <header className="sticky top-0 z-50 bg-white shadow-md">
+        {/* Bandeau avec drapeau et certification */}
+        <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2">
+          <div className="container mx-auto px-6 lg:px-8 flex items-center justify-center gap-3">
+            <Image src="/luxembourg.jpg" alt="Drapeau Luxembourg" width={40} height={27} className="rounded shadow-sm" />
+            <span className="text-white text-sm font-semibold">Programme subventionné par l'État du Luxembourg</span>
+          </div>
+        </div>
+      
       <nav className="container mx-auto flex items-center justify-between px-6 py-4 lg:px-8">
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 flex items-center gap-2 p-1.5">
@@ -89,7 +154,8 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+      </header>
+    </>
   );
 }
 

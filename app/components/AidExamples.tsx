@@ -48,23 +48,23 @@ export default function AidExamples() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ scale: 1.03 }}
-              className="overflow-hidden rounded-xl bg-white shadow-lg transition hover:shadow-xl"
+              className="overflow-hidden rounded-xl bg-white shadow-lg transition hover:shadow-xl flex flex-col"
             >
               <div className="px-8 py-6" style={{ backgroundColor: example.color === 'green' ? '#ED1C24' : '#00A3E0' }}>
                 <div className="text-6xl font-bold text-white">
-                  {example.percentage}
+                  {example.percentage} <span className="text-xl font-semibold">d'aides</span>
                 </div>
-                <div className="mt-2 text-xl font-semibold text-white">
-                  d'aides
+                <div className="mt-4 text-base font-bold text-white border-t-2 border-white/30 pt-4">
+                  Aides éligibles : {example.aids}
                 </div>
               </div>
 
-              <div className="space-y-4 p-8">
+              <div className="space-y-4 p-8 flex flex-col flex-grow">
                 <h3 className="text-xl font-semibold text-gray-900">
                   {example.title}
                 </h3>
 
-                <div className="space-y-2 text-gray-700">
+                <div className="space-y-2 text-gray-700 flex-grow">
                   <p>
                     <span className="font-medium">Ville :</span> {example.city}
                   </p>
@@ -76,14 +76,11 @@ export default function AidExamples() {
                       <span className="font-medium">Revenu annuel du foyer :</span> {example.income}
                     </p>
                   )}
-                  <p>
-                    <span className="font-medium">Aides éligible :</span> {example.aids}
-                  </p>
                 </div>
 
                 <a
                   href="#"
-                  className="mt-6 inline-block rounded-lg border-2 px-6 py-3 font-semibold transition"
+                  className="mt-6 inline-block rounded-lg border-2 px-6 py-3 font-semibold transition text-center"
                   style={{ borderColor: '#003D7A', color: '#003D7A' }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#003D7A';

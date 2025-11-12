@@ -46,7 +46,7 @@ export default function WhyUs() {
             Pourquoi faire appel à AidesEnergie.lu ?
           </h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-700">
-            Chez AidesEnergie.lu, nous croyons que chaque projet est unique. C'est pourquoi nos conseillers vous accompagnent de manière personnalisée pour identifier les aides auxquelles vous avez droit et vous guider dans toutes les démarches, sans jargon ni stress.
+            Chez AidesEnergie.lu, nos conseillers vous accompagnent de manière personnalisée pour identifier les aides auxquelles vous avez droit et vous guider dans toutes les démarches.
           </p>
         </div>
 

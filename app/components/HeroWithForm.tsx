@@ -95,6 +95,11 @@ export default function HeroWithForm() {
             className="relative"
           >
             <div className="rounded-2xl bg-white p-8 shadow-2xl">
+              {/* Titre du formulaire */}
+              <div className="text-center mb-6 py-4 rounded-lg" style={{ backgroundColor: '#ED1C24' }}>
+                <h2 className="text-2xl font-bold text-white">SIMULATEUR D'AIDE 2025</h2>
+              </div>
+              
               {step < 6 && (
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-2">
@@ -132,9 +137,10 @@ export default function HeroWithForm() {
                     </h3>
                     <div className="space-y-4">
                       {[
-                        { value: "renovation", label: "Rénovation énergétique", icon: "🏠" },
-                        { value: "chauffage", label: "Chauffage (Pompe à chaleur)", icon: "♨️" },
-                        { value: "photovoltaique", label: "Production d'électricité (Panneaux photovoltaïques)", icon: "☀️" },
+                        { value: "panneaux", label: "Panneau solaire", icon: "☀️" },
+                        { value: "pompe", label: "Pompe à chaleur", icon: "♨️" },
+                        { value: "isolation", label: "Isolation", icon: "🏠" },
+                        { value: "borne", label: "Borne de recharge automobile", icon: "🔌" },
                       ].map((option) => (
                         <button
                           key={option.value}
