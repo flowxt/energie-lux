@@ -36,7 +36,6 @@ export default function Footer() {
             <h4 className="mb-4 text-lg font-semibold">Contact</h4>
             <ul className="space-y-2" style={{ color: '#CCF0FF' }}>
               <li>Email : contact@aidesenergie.lu</li>
-              <li>Téléphone : +352 XX XX XX XX</li>
               <li>Luxembourg</li>
             </ul>
           </div>

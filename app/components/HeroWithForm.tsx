@@ -58,7 +58,11 @@ export default function HeroWithForm() {
             className="space-y-8"
           >
             <h1 className="text-4xl font-bold leading-tight lg:text-5xl">
-              Bénéficier jusqu'à <span style={{ color: '#ED1C24' }}>100% d'aide</span> selon votre situation pour votre installation !
+              <span className="text-white">Calculez vos droits aux </span>
+              <span style={{ color: '#ED1C24' }} className="block lg:inline">aides financières</span>
+              <span className="text-white"> pour votre </span>
+              <span className="text-cyan-300 block lg:inline">rénovation énergétique</span>
+              <span className="text-white">.</span>
             </h1>
             
             <div className="space-y-4 text-lg">
@@ -96,13 +100,9 @@ export default function HeroWithForm() {
             className="relative"
           >
             <div className="rounded-2xl bg-white p-8 shadow-2xl">
-              {/* Titre du formulaire avec badge officiel */}
-              <div className="text-center mb-6 py-4 rounded-lg relative" style={{ backgroundColor: '#ED1C24' }}>
+              {/* Titre du formulaire */}
+              <div className="text-center mb-6 py-4 rounded-lg" style={{ backgroundColor: '#ED1C24' }}>
                 <h2 className="text-2xl font-bold text-white">SIMULATEUR D'AIDE 2025</h2>
-                <div className="absolute -top-3 right-4 bg-white px-3 py-1 rounded-full shadow-lg flex items-center gap-2">
-                  <Image src="/lux.png" alt="Luxembourg" width={24} height={16} />
-                  <span className="text-xs font-bold" style={{ color: '#003D7A' }}>OFFICIEL</span>
-                </div>
               </div>
               
               {step < 6 && (
