@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 // Police pour les titres - Montserrat (moderne et impactante)
@@ -58,6 +59,7 @@ export default function RootLayout({
       </head>
       <body className={`${montserrat.variable} ${openSans.variable} antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
