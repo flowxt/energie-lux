@@ -11,7 +11,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
   --color-lux-blue: var(--lux-blue);
   --color-lux-red: var(--lux-red);
   --color-lux-blue-dark: var(--lux-blue-dark);
@@ -20,7 +21,8 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), 'Open Sans', system-ui, -apple-system, sans-serif;
+  font-optical-sizing: auto;
 }
 
 html {
@@ -32,14 +34,19 @@ a, button {
   transition: all 0.2s ease-in-out;
 }
 
-/* Amélioration de la lisibilité */
+/* Polices professionnelles pour les titres */
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), 'Montserrat', system-ui, sans-serif;
   line-height: 1.2;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-p {
-  line-height: 1.6;
+/* Polices pour le corps de texte */
+p, li, span, a, button, input, textarea, select {
+  font-family: var(--font-body), 'Open Sans', system-ui, sans-serif;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
 }
 
 /* Styles pour les formulaires */
