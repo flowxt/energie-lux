@@ -54,7 +54,7 @@ export default function ServicesGrid() {
             Nos solutions de <span style={{ color: '#ED1C24' }}>rénovation énergétique</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Des travaux financés par les aides de l'État luxembourgeois pour améliorer votre confort et réduire vos dépenses énergétiques
+            Des travaux financés par les aides de l&apos;État luxembourgeois pour améliorer votre confort et réduire vos dépenses énergétiques
           </p>
         </motion.div>
 

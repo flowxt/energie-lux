@@ -31,7 +31,7 @@ export default function Header() {
             <div className="bg-white rounded px-2 py-1 shadow-md">
               <Image src="/lux.png" alt="Drapeau Luxembourg" width={40} height={27} />
             </div>
-            <span className="text-white text-sm font-semibold">Programme subventionné par l'État du Luxembourg</span>
+            <span className="text-white text-sm font-semibold">Programme subventionné par l&apos;État du Luxembourg</span>
           </div>
         </div>
       
