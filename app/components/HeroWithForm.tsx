@@ -42,9 +42,29 @@ export default function HeroWithForm() {
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    setStep(6); // Page de félicitations
+  const handleSubmit = async () => {
+    try {
+      // Envoi des données via l'API Resend
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Email envoyé avec succès !");
+        setStep(6); // Page de félicitations
+      } else {
+        console.error("Erreur lors de l'envoi de l'email");
+        // Vous pouvez afficher un message d'erreur à l'utilisateur ici
+        alert("Une erreur s'est produite. Veuillez réessayer.");
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("Une erreur s'est produite. Veuillez réessayer.");
+    }
   };
 
   return (
