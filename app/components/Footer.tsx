@@ -16,7 +16,7 @@ export default function Footer() {
 
         <div className="grid gap-8 md:grid-cols-3">
           <div>
-            <h3 className="mb-4 text-xl font-bold">AidesEnergie.lu</h3>
+            <h3 className="mb-4 text-xl font-bold">Aides-Energie.lu</h3>
             <p style={{ color: '#CCF0FF' }}>
               Votre partenaire de confiance pour bénéficier des aides énergétiques au Luxembourg.
             </p>
@@ -42,7 +42,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-8 text-center" style={{ borderTop: '1px solid #00A3E0', color: '#CCF0FF' }}>
-          <p>&copy; {new Date().getFullYear()} AidesEnergie.lu - Tous droits réservés</p>
+          <p>&copy; {new Date().getFullYear()} Aides-Energie.lu - Tous droits réservés</p>
         </div>
 
         {/* Section SEO - Mots-clés Luxembourg */}
@@ -89,7 +89,7 @@ export default function Footer() {
             </div>
           </div>
           <p className="mt-6 text-center text-xs opacity-75">
-            AidesEnergie.lu vous accompagne dans l'obtention de toutes les aides de l'État luxembourgeois pour vos travaux de rénovation énergétique 2025. 
+            Aides-Energie.lu vous accompagne dans l'obtention de toutes les aides de l'État luxembourgeois pour vos travaux de rénovation énergétique 2025. 
             Calculez gratuitement vos droits aux aides : Klimabonus, Top-up social, aides communales.
           </p>
         </div>

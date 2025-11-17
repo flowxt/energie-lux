@@ -60,7 +60,7 @@ export default function RenovationServices() {
             Le Luxembourg propose des aides financières concrètes pour vos travaux de rénovation énergétique, notamment via le programme Klimabonus, qui soutient les initiatives durables des particuliers.
           </p>
           <p className="mt-4 text-blue-100 leading-relaxed">
-            Chez AidesEnergie.lu, nous identifions précisément les aides auxquelles vous avez droit, en fonction de votre projet, et vous guidons à chaque étape.
+            Chez Aides-Energie.lu, nous identifions précisément les aides auxquelles vous avez droit, en fonction de votre projet, et vous guidons à chaque étape.
           </p>
           <p className="mt-4 font-semibold text-white">
             Notre objectif : vous faire profiter au maximum des dispositifs disponibles, tout en vous simplifiant les démarches de A à Z.

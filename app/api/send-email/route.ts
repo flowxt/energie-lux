@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     };
 
     const data = await resend.emails.send({
-      from: 'AidesEnergie.lu <onboarding@resend.dev>', // Email de test Resend
+      from: 'Aides-Energie.lu <onboarding@resend.dev>', // Email de test Resend
       to: ['enrluxn@gmail.com'],
       subject: `🇱🇺 Nouvelle demande de simulation - ${firstName} ${lastName}`,
       html: `
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
           <body>
             <div class="container">
               <div class="header">
-                <h1 style="margin: 0;">🇱🇺 Nouvelle Demande AidesEnergie.lu</h1>
+                <h1 style="margin: 0;">🇱🇺 Nouvelle Demande Aides-Energie.lu</h1>
                 <p style="margin: 10px 0 0 0;">Simulateur d'aides 2025</p>
               </div>
               
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
                 </div>
 
                 <div class="footer">
-                  <p>Email envoyé automatiquement depuis AidesEnergie.lu</p>
+                  <p>Email envoyé automatiquement depuis Aides-Energie.lu</p>
                   <p>Date : ${new Date().toLocaleString('fr-LU', { timeZone: 'Europe/Luxembourg' })}</p>
                 </div>
               </div>

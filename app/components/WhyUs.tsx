@@ -43,10 +43,10 @@ export default function WhyUs() {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-3xl font-bold" style={{ color: '#003D7A' }}>
-            Pourquoi faire appel à AidesEnergie.lu ?
+            Pourquoi faire appel à Aides-Energie.lu ?
           </h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-700">
-            Chez AidesEnergie.lu, nos conseillers vous accompagnent de manière personnalisée pour identifier les aides auxquelles vous avez droit et vous guider dans toutes les démarches.
+            Chez Aides-Energie.lu, nos conseillers vous accompagnent de manière personnalisée pour identifier les aides auxquelles vous avez droit et vous guider dans toutes les démarches.
           </p>
         </div>
 

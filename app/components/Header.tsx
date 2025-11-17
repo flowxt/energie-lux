@@ -38,9 +38,9 @@ export default function Header() {
       <nav className="container mx-auto flex items-center justify-between px-6 py-4 lg:px-8">
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 flex items-center gap-2 p-1.5">
-            <Image src="/logo.png" alt="AidesEnergie.lu" width={40} height={40} className="h-10 w-auto" />
+            <Image src="/logo.png" alt="Aides-Energie.lu" width={40} height={40} className="h-10 w-auto" />
             <span className="text-2xl font-bold" style={{ color: '#003D7A' }}>
-              AidesEnergie<span style={{ color: '#ED1C24' }}>.lu</span>
+              Aides<span style={{ color: '#ED1C24' }}>-</span>Energie<span style={{ color: '#ED1C24' }}>.lu</span>
             </span>
           </a>
         </div>

@@ -20,7 +20,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Aides Énergie Luxembourg 2025 | Panneaux Solaires, Pompe à Chaleur, Isolation - AidesEnergie.lu",
+  title: "Aides Énergie Luxembourg 2025 | Panneaux Solaires, Pompe à Chaleur, Isolation - Aides-Energie.lu",
   description: "🇱🇺 Aide panneaux solaires Luxembourg, aide pompe à chaleur Luxembourg, aide isolation Luxembourg. Calculez vos aides 2025 : Klimabonus, Top-up social, aides communales. Jusqu'à 100% de financement pour votre rénovation énergétique. Simulateur gratuit. Services dans tout le Luxembourg.",
   keywords: "aide panneaux solaires luxembourg, aide panneaux photovoltaïques luxembourg, aide pompe à chaleur luxembourg, aide isolation luxembourg, klimabonus luxembourg, aide rénovation énergétique luxembourg, top-up social luxembourg, subvention panneaux solaires luxembourg, prime énergie luxembourg, aide état luxembourg, aides 2025 luxembourg, borne recharge luxembourg aide, aide travaux énergétiques luxembourg, aide énergie Luxembourg-Ville, aide énergie Esch-sur-Alzette, aide énergie Differdange, aide énergie Dudelange, aide énergie Ettelbruck, aide énergie Diekirch, aide énergie Wiltz, aide énergie Echternach, aide énergie Rumelange, aide énergie Grevenmacher",
   icons: {
@@ -53,10 +53,10 @@ export default function RootLayout({
         <meta name="geo.placename" content="Luxembourg" />
         <meta property="og:locale" content="fr_LU" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Aides Énergie Luxembourg 2025 | AidesEnergie.lu" />
+        <meta property="og:title" content="Aides Énergie Luxembourg 2025 | Aides-Energie.lu" />
         <meta property="og:description" content="Calculez vos aides pour panneaux solaires, pompe à chaleur et isolation au Luxembourg. Klimabonus 2025. Jusqu'à 100% de financement." />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.aidesenergie.lu" />
+        <link rel="canonical" href="https://www.aides-energie.lu" />
       </head>
       <body className={`${montserrat.variable} ${openSans.variable} antialiased`}>
         {children}

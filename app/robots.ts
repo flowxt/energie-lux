@@ -14,8 +14,8 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 0,
       },
     ],
-    sitemap: 'https://www.aidesenergie.lu/sitemap.xml',
-    host: 'https://www.aidesenergie.lu',
+    sitemap: 'https://www.aides-energie.lu/sitemap.xml',
+    host: 'https://www.aides-energie.lu',
   }
 }
 
