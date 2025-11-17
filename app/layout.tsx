@@ -48,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="fr-LU">
       <head>
+        <meta name="google-site-verification" content="pLS1mc3t22BU2KCNANoG0l-GcIphpzI4-vTSqsHsPPI" />
         <meta name="geo.region" content="LU" />
         <meta name="geo.placename" content="Luxembourg" />
         <meta property="og:locale" content="fr_LU" />
