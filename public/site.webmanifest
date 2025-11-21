@@ -1,7 +1,7 @@
 {
-  "name": "AidesEnergie.lu - Aides énergétiques Luxembourg",
-  "short_name": "AidesEnergie.lu",
-  "description": "Bénéficiez jusqu'à 100% d'aide pour vos travaux de rénovation énergétique au Luxembourg",
+  "name": "Aides-Energie.lu - Aides énergétiques Luxembourg 2025",
+  "short_name": "Aides-Energie.lu",
+  "description": "Calculez vos aides 2025 : panneaux solaires, pompe à chaleur, isolation. Jusqu'à 100% de financement au Luxembourg.",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
