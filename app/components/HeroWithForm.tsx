@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 
 type FormData = {
   interest: string;
@@ -13,6 +12,11 @@ type FormData = {
   lastName: string;
   phone: string;
   email: string;
+};
+
+type CallbackData = {
+  phone: string;
+  firstName?: string;
 };
 
 export default function HeroWithForm() {
@@ -27,6 +31,15 @@ export default function HeroWithForm() {
     phone: "",
     email: "",
   });
+  
+  // État pour le modal de rappel
+  const [showCallbackModal, setShowCallbackModal] = useState(false);
+  const [callbackData, setCallbackData] = useState<CallbackData>({
+    phone: "",
+    firstName: "",
+  });
+  const [isSubmittingCallback, setIsSubmittingCallback] = useState(false);
+  const [callbackSuccess, setCallbackSuccess] = useState(false);
 
   const totalSteps = 5;
 
@@ -64,6 +77,45 @@ export default function HeroWithForm() {
     } catch (error) {
       console.error("Erreur:", error);
       alert("Une erreur s'est produite. Veuillez réessayer.");
+    }
+  };
+
+  const handleCallbackSubmit = async () => {
+    if (!callbackData.phone) {
+      alert("Veuillez entrer votre numéro de téléphone");
+      return;
+    }
+
+    setIsSubmittingCallback(true);
+
+    try {
+      const response = await fetch('/api/send-callback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: callbackData.phone,
+          firstName: callbackData.firstName,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      if (response.ok) {
+        setCallbackSuccess(true);
+        setTimeout(() => {
+          setShowCallbackModal(false);
+          setCallbackSuccess(false);
+          setCallbackData({ phone: "", firstName: "" });
+        }, 3000);
+      } else {
+        alert("Une erreur s'est produite. Veuillez réessayer.");
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("Une erreur s'est produite. Veuillez réessayer.");
+    } finally {
+      setIsSubmittingCallback(false);
     }
   };
 
@@ -110,6 +162,40 @@ export default function HeroWithForm() {
                 </li>
               </ul>
             </div>
+
+            {/* Bouton "On vous rappelle" avec effet de vague */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="relative"
+            >
+              <button
+                onClick={() => setShowCallbackModal(true)}
+                className="relative w-full py-5 px-8 text-xl font-bold text-white rounded-2xl overflow-hidden shadow-2xl transform transition-all hover:scale-105 hover:shadow-3xl group"
+                style={{ backgroundColor: '#ED1C24' }}
+              >
+                {/* Effet de vague animé */}
+                <span className="absolute inset-0 w-full h-full">
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20 animate-shimmer"></span>
+                </span>
+                
+                {/* Effet de pulse */}
+                <span className="absolute inset-0 rounded-2xl animate-ping opacity-20" style={{ backgroundColor: '#ED1C24' }}></span>
+                
+                {/* Texte du bouton */}
+                <span className="relative flex items-center justify-center">
+                  <span className="text-2xl animate-bounce">📞 On vous rappelle !</span>
+                </span>
+                
+                {/* Effet de brillance au survol */}
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
+              </button>
+              
+              <p className="text-center mt-3 text-sm text-blue-100">
+                ⚡ Réponse sous 24h • Gratuit et sans engagement
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* Formulaire multi-étapes */}
@@ -122,7 +208,7 @@ export default function HeroWithForm() {
             <div className="rounded-2xl bg-white p-8 shadow-2xl">
               {/* Titre du formulaire */}
               <div className="text-center mb-6 py-4 rounded-lg" style={{ backgroundColor: '#ED1C24' }}>
-                <h2 className="text-2xl font-bold text-white">SIMULATEUR D'AIDE 2025</h2>
+                <h2 className="text-2xl font-bold text-white">SIMULATEUR D&apos;AIDE 2025</h2>
               </div>
               
               {step < 6 && (
@@ -445,7 +531,7 @@ export default function HeroWithForm() {
                     
                     <div className="space-y-4 text-left bg-gray-50 p-6 rounded-lg">
                       <p className="text-lg font-semibold" style={{ color: '#003D7A' }}>
-                        Le montant des aides d'État dont vous pouvez bénéficier est lié à votre situation.
+                        Le montant des aides d&apos;État dont vous pouvez bénéficier est lié à votre situation.
                       </p>
                       
                       <div className="flex items-start gap-3">
@@ -462,7 +548,7 @@ export default function HeroWithForm() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                         <p className="text-gray-700">
-                          Notre équipe vous permettra d'obtenir le <strong>maximum d'aides de l'État possible</strong>.
+                          Notre équipe vous permettra d&apos;obtenir le <strong>maximum d&apos;aides de l&apos;État possible</strong>.
                         </p>
                       </div>
                     </div>
@@ -494,6 +580,117 @@ export default function HeroWithForm() {
           </motion.div>
         </div>
       </div>
+
+      {/* Modal de rappel */}
+      <AnimatePresence>
+        {showCallbackModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={() => setShowCallbackModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {!callbackSuccess ? (
+                <>
+                  {/* En-tête */}
+                  <div className="text-center mb-6">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#E6F7FF' }}>
+                      <span className="text-5xl">📞</span>
+                    </div>
+                    <h3 className="text-3xl font-bold mb-2" style={{ color: '#003D7A' }}>
+                      On vous rappelle !
+                    </h3>
+                    <p className="text-gray-600">
+                      Laissez-nous votre numéro et nous vous contactons sous 24h
+                    </p>
+                  </div>
+
+                  {/* Formulaire */}
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Prénom (optionnel)
+                      </label>
+                      <input
+                        type="text"
+                        value={callbackData.firstName}
+                        onChange={(e) => setCallbackData({ ...callbackData, firstName: e.target.value })}
+                        placeholder="Jean"
+                        className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none text-gray-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Téléphone *
+                      </label>
+                      <input
+                        type="tel"
+                        value={callbackData.phone}
+                        onChange={(e) => setCallbackData({ ...callbackData, phone: e.target.value })}
+                        placeholder="+352 XX XX XX XX"
+                        className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none text-gray-900 text-lg font-semibold"
+                      />
+                    </div>
+
+                    {/* Boutons */}
+                    <div className="flex gap-3 mt-6">
+                      <button
+                        onClick={() => setShowCallbackModal(false)}
+                        className="flex-1 rounded-xl border-2 px-6 py-3 font-semibold transition"
+                        style={{ borderColor: '#003D7A', color: '#003D7A' }}
+                      >
+                        Annuler
+                      </button>
+                      <button
+                        onClick={handleCallbackSubmit}
+                        disabled={isSubmittingCallback || !callbackData.phone}
+                        className="flex-1 rounded-xl px-6 py-3 font-semibold text-white transition disabled:opacity-50"
+                        style={{ backgroundColor: '#ED1C24' }}
+                      >
+                        {isSubmittingCallback ? 'Envoi...' : 'Valider ✓'}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Badge de confiance */}
+                  <div className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-600">
+                    <svg className="w-5 h-5" style={{ color: '#00A3E0' }} fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Gratuit et sans engagement</span>
+                  </div>
+                </>
+              ) : (
+                /* Message de succès */
+                <div className="text-center py-8">
+                  <div className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#E6F7FF' }}>
+                    <span className="text-6xl">🎉</span>
+                  </div>
+                  <h3 className="text-3xl font-bold mb-4" style={{ color: '#003D7A' }}>
+                    Parfait !
+                  </h3>
+                  <p className="text-lg text-gray-700 mb-2">
+                    Nous vous rappelons <strong>sous 24h</strong>
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Merci pour votre confiance 🇱🇺
+                  </p>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
