@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 import "./globals.css";
 
 // Police pour les titres - Montserrat (moderne et impactante)
@@ -59,6 +60,24 @@ export default function RootLayout({
         <link rel="canonical" href="https://www.aides-energie.lu" />
       </head>
       <body className={`${montserrat.variable} ${openSans.variable} antialiased`}>
+        {/* Google tag (gtag.js) - Google Ads */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16967255678"
+        />
+        <Script
+          id="google-ads-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16967255678');
+            `,
+          }}
+        />
+        
         {children}
         <Analytics />
       </body>
