@@ -24,7 +24,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white shadow-md">
+    <header className="sticky top-0 z-50 bg-white shadow-md">
         {/* Bandeau avec drapeau et certification */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 py-2">
           <div className="container mx-auto px-6 lg:px-8 flex items-center justify-center gap-3">
@@ -108,7 +108,7 @@ export default function Header() {
           </div>
         </div>
       )}
-      </header>
+    </header>
 
       {/* Bandeau promotionnel défilant - en dessous de la nav */}
       <div className="bg-gradient-to-r from-blue-800 to-blue-900 py-3 overflow-hidden relative">

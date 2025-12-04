@@ -6,7 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { interest, propertyType, ownershipStatus, address, firstName, lastName, phone, email } = body;
+    const { interest, firstName, phone } = body;
 
     // Mapping des valeurs du formulaire
     const interestLabels: { [key: string]: string } = {
@@ -16,20 +16,10 @@ export async function POST(request: Request) {
       'borne': 'Borne de recharge automobile'
     };
 
-    const propertyLabels: { [key: string]: string } = {
-      'maison': 'Maison individuelle',
-      'appartement': 'Appartement'
-    };
-
-    const ownershipLabels: { [key: string]: string } = {
-      'proprietaire': 'Propriétaire',
-      'locataire': 'Locataire'
-    };
-
     const data = await resend.emails.send({
-      from: 'Aides-Energie.lu <onboarding@resend.dev>', // Email de test Resend
+      from: 'Aides-Energie.lu <onboarding@resend.dev>',
       to: ['enrluxn@gmail.com'],
-      subject: `🇱🇺 Nouvelle demande de simulation - ${firstName} ${lastName}`,
+      subject: `🇱🇺 LEAD URGENT - ${firstName || 'Prospect'} - ${interestLabels[interest] || interest}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -50,42 +40,33 @@ export async function POST(request: Request) {
           <body>
             <div class="container">
               <div class="header">
-                <h1 style="margin: 0;">🇱🇺 Nouvelle Demande Aides-Energie.lu</h1>
-                <p style="margin: 10px 0 0 0;">Simulateur d'aides 2025</p>
+                <h1 style="margin: 0;">🚨 LEAD ULTRA-QUALIFIÉ</h1>
+                <p style="margin: 10px 0 0 0; font-size: 18px;">⚡ APPELER IMMÉDIATEMENT ⚡</p>
               </div>
               
               <div class="content">
                 <div class="highlight">
-                  <strong>Projet : ${interestLabels[interest] || interest}</strong>
+                  <strong style="font-size: 20px;">🎯 ${interestLabels[interest] || interest}</strong>
                 </div>
 
-                <div class="info-block">
-                  <h3 style="color: #003D7A; margin-top: 0;">👤 Informations du contact</h3>
-                  <div class="label">Nom complet</div>
-                  <div class="value">${firstName} ${lastName}</div>
+                <div class="info-block" style="border-left: 4px solid #ED1C24; background: #FFF5F5;">
+                  <h3 style="color: #ED1C24; margin-top: 0; font-size: 22px;">📞 APPELER CE NUMÉRO :</h3>
+                  <div class="value" style="font-size: 28px; font-weight: bold; color: #ED1C24; text-align: center; margin: 20px 0;">
+                    <a href="tel:${phone}" style="color: #ED1C24; text-decoration: none;">${phone}</a>
+                  </div>
                   
-                  <div class="label">📧 Email</div>
-                  <div class="value"><a href="mailto:${email}">${email}</a></div>
-                  
-                  <div class="label">📱 Téléphone</div>
-                  <div class="value"><a href="tel:${phone}">${phone}</a></div>
+                  ${firstName ? `
+                    <div class="label">👤 Prénom</div>
+                    <div class="value" style="font-size: 18px;"><strong>${firstName}</strong></div>
+                  ` : ''}
                 </div>
 
-                <div class="info-block">
-                  <h3 style="color: #003D7A; margin-top: 0;">🏠 Informations du bien</h3>
-                  <div class="label">Type de logement</div>
-                  <div class="value">${propertyLabels[propertyType] || propertyType}</div>
-                  
-                  <div class="label">Statut</div>
-                  <div class="value">${ownershipLabels[ownershipStatus] || ownershipStatus}</div>
-                  
-                  <div class="label">📍 Commune</div>
-                  <div class="value">${address}</div>
-                </div>
-
-                <div style="background: #E6F7FF; padding: 20px; border-radius: 8px; margin-top: 20px;">
-                  <p style="margin: 0; text-align: center; color: #003D7A;">
-                    ⚡ <strong>Action recommandée :</strong> Contacter le prospect sous 24h pour maximiser la conversion
+                <div style="background: #FFF3CD; padding: 20px; border-radius: 8px; margin-top: 20px; border: 2px solid #FFC107;">
+                  <p style="margin: 0; text-align: center; color: #856404; font-weight: bold; font-size: 16px;">
+                    ⏰ TEMPS DE RÉPONSE CRITIQUE : Appeler dans les 5 minutes !
+                  </p>
+                  <p style="margin: 10px 0 0 0; text-align: center; color: #856404;">
+                    Les leads qui reçoivent un appel dans les 5 minutes ont <strong>21x plus de chances</strong> de se convertir.
                   </p>
                 </div>
 

@@ -35,8 +35,9 @@ export default function Footer() {
           <div>
             <h4 className="mb-4 text-lg font-semibold">Contact</h4>
             <ul className="space-y-2" style={{ color: '#CCF0FF' }}>
-              <li>Email : enrluxn@gmail.com</li>
-              <li>Luxembourg</li>
+              <li>☎️ <a href="tel:+352691373316" className="hover:text-white transition">+352 691 373 316</a></li>
+              <li>☎️ <a href="tel:+352691382602" className="hover:text-white transition">+352 691 382 602</a></li>
+              <li>🇱🇺 Luxembourg</li>
             </ul>
           </div>
         </div>
