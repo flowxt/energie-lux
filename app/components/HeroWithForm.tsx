@@ -1,20 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HeroWithForm() {
-  // Formulaire ULTRA-SIMPLIFIÉ avec prénom
-  const [interest, setInterest] = useState("panneaux");
+  // Formulaire par étapes
+  const [step, setStep] = useState(1);
+  const [interest, setInterest] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [ownership, setOwnership] = useState("");
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const totalSteps = 5;
+
+  const nextStep = () => {
+    if (step < totalSteps) setStep(step + 1);
+  };
+
+  const prevStep = () => {
+    if (step > 1) setStep(step - 1);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firstName || !phone) return;
-
     setIsSubmitting(true);
 
     try {
@@ -23,6 +34,8 @@ export default function HeroWithForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           interest,
+          propertyType,
+          ownership,
           firstName,
           phone 
         }),
@@ -30,7 +43,9 @@ export default function HeroWithForm() {
 
       if (response.ok) {
         // Tracking Google Ads Conversion
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (typeof window !== 'undefined' && (window as any).gtag) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (window as any).gtag('event', 'conversion', {
             'send_to': process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_ID,
             'value': 1.0,
@@ -134,81 +149,264 @@ export default function HeroWithForm() {
               {!isSubmitted ? (
                 <>
                   {/* Titre du formulaire */}
-                  <div className="text-center mb-8">
+                  <div className="text-center mb-6">
                     <h2 className="text-3xl font-bold mb-3" style={{ color: '#003D7A' }}>
                       Testez votre éligibilité
                     </h2>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 text-sm">
                       Gratuit • Sans engagement • Réponse rapide
                     </p>
                   </div>
 
-                  {/* FORMULAIRE */}
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Sélection projet */}
-                    <div>
-                      <label className="block text-sm font-medium mb-2 text-gray-700">
-                        Votre projet
-                      </label>
-                      <select
-                        value={interest}
-                        onChange={(e) => setInterest(e.target.value)}
-                        className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                        style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
-                      >
-                        <option value="panneaux">☀️ Panneau solaire</option>
-                        <option value="pompe">♨️ Pompe à chaleur</option>
-                        <option value="isolation">🏠 Isolation</option>
-                        <option value="borne">🔌 Borne de recharge automobile</option>
-                      </select>
+                  {/* Barre de progression */}
+                  <div className="mb-8">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium text-gray-600">Étape {step} sur {totalSteps}</span>
+                      <span className="text-sm font-medium text-gray-600">{Math.round((step / totalSteps) * 100)}%</span>
                     </div>
-
-                    {/* Nom et Prénom */}
-                      <div>
-                      <label className="block text-sm font-medium mb-2 text-gray-700">
-                        Nom et Prénom
-                        </label>
-                        <input
-                          type="text"
-                          required
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        placeholder="Jean Dupont"
-                        className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                        style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
+                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full rounded-full"
+                        style={{ backgroundColor: '#00A3E0' }}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${(step / totalSteps) * 100}%` }}
+                        transition={{ duration: 0.3 }}
                       />
                     </div>
+                  </div>
 
-                    {/* Téléphone */}
-                        <div>
-                      <label className="block text-sm font-medium mb-2 text-gray-700">
-                        Téléphone
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+352 ..."
-                        className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                        style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
-                      />
-                    </div>
+                  {/* FORMULAIRE PAR ÉTAPES */}
+                  <form onSubmit={handleSubmit}>
+                    <AnimatePresence mode="wait">
+                      {/* Étape 1 : Projet */}
+                      {step === 1 && (
+                        <motion.div
+                          key="step1"
+                          initial={{ opacity: 0, x: 50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -50 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
+                            Quel est votre projet ?
+                          </label>
+                          <div className="grid grid-cols-1 gap-3">
+                            {[
+                              { value: 'panneaux', label: 'Panneau solaire', icon: '☀️' },
+                              { value: 'pompe', label: 'Pompe à chaleur', icon: '♨️' },
+                              { value: 'isolation', label: 'Isolation', icon: '🏠' },
+                              { value: 'borne', label: 'Borne de recharge', icon: '🔌' }
+                            ].map((option) => (
+                              <button
+                                key={option.value}
+                                type="button"
+                                onClick={() => {
+                                  setInterest(option.value);
+                                  nextStep();
+                                }}
+                                className="flex items-center gap-3 p-4 rounded-xl border-2 transition-all hover:border-blue-500 hover:bg-blue-50 hover:shadow-md"
+                                style={{ 
+                                  borderColor: interest === option.value ? '#00A3E0' : '#d1d5db',
+                                  backgroundColor: interest === option.value ? '#E6F7FF' : 'white',
+                                  boxShadow: interest === option.value ? '0 4px 12px rgba(0,163,224,0.15)' : 'none'
+                                }}
+                              >
+                                <span className="text-3xl">{option.icon}</span>
+                                <span className="text-lg font-semibold" style={{ color: '#1f2937' }}>{option.label}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
 
-                    {/* Bouton */}
-                      <button
-                      type="submit"
-                      disabled={!firstName || !phone || isSubmitting}
-                      className="w-full rounded-lg px-6 py-4 text-lg font-bold text-white shadow-lg transition hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
-                        style={{ backgroundColor: '#ED1C24' }}
-                      >
-                      {isSubmitting ? "Envoi en cours..." : "Tester mon éligibilité"}
-                      </button>
+                      {/* Étape 2 : Type de propriété */}
+                      {step === 2 && (
+                        <motion.div
+                          key="step2"
+                          initial={{ opacity: 0, x: 50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -50 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
+                            Type de propriété
+                          </label>
+                          <div className="grid grid-cols-1 gap-3">
+                            {[
+                              { value: 'maison', label: 'Maison individuelle', icon: '🏡' },
+                              { value: 'appartement', label: 'Appartement', icon: '🏢' }
+                            ].map((option) => (
+                              <button
+                                key={option.value}
+                                type="button"
+                                onClick={() => {
+                                  setPropertyType(option.value);
+                                  nextStep();
+                                }}
+                                className="flex items-center gap-3 p-4 rounded-xl border-2 transition-all hover:border-blue-500 hover:bg-blue-50 hover:shadow-md"
+                                style={{ 
+                                  borderColor: propertyType === option.value ? '#00A3E0' : '#d1d5db',
+                                  backgroundColor: propertyType === option.value ? '#E6F7FF' : 'white',
+                                  boxShadow: propertyType === option.value ? '0 4px 12px rgba(0,163,224,0.15)' : 'none'
+                                }}
+                              >
+                                <span className="text-3xl">{option.icon}</span>
+                                <span className="text-lg font-semibold" style={{ color: '#1f2937' }}>{option.label}</span>
+                              </button>
+                            ))}
+                          </div>
+                          <button
+                            type="button"
+                            onClick={prevStep}
+                            className="mt-4 w-full py-2 text-sm text-gray-600 hover:text-gray-900"
+                          >
+                            ← Retour
+                          </button>
+                        </motion.div>
+                      )}
 
-                    {/* Réassurance */}
-                    <p className="text-center text-xs text-gray-500">
-                      🔒 Vos données sont sécurisées et confidentielles
-                    </p>
+                      {/* Étape 3 : Statut */}
+                      {step === 3 && (
+                        <motion.div
+                          key="step3"
+                          initial={{ opacity: 0, x: 50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -50 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
+                            Vous êtes
+                          </label>
+                          <div className="grid grid-cols-1 gap-3">
+                            {[
+                              { value: 'proprietaire', label: 'Propriétaire', icon: '👤' },
+                              { value: 'locataire', label: 'Locataire', icon: '🏠' }
+                            ].map((option) => (
+                              <button
+                                key={option.value}
+                                type="button"
+                                onClick={() => {
+                                  setOwnership(option.value);
+                                  nextStep();
+                                }}
+                                className="flex items-center gap-3 p-4 rounded-xl border-2 transition-all hover:border-blue-500 hover:bg-blue-50 hover:shadow-md"
+                                style={{ 
+                                  borderColor: ownership === option.value ? '#00A3E0' : '#d1d5db',
+                                  backgroundColor: ownership === option.value ? '#E6F7FF' : 'white',
+                                  boxShadow: ownership === option.value ? '0 4px 12px rgba(0,163,224,0.15)' : 'none'
+                                }}
+                              >
+                                <span className="text-3xl">{option.icon}</span>
+                                <span className="text-lg font-semibold" style={{ color: '#1f2937' }}>{option.label}</span>
+                              </button>
+                            ))}
+                          </div>
+                          <button
+                            type="button"
+                            onClick={prevStep}
+                            className="mt-4 w-full py-2 text-sm text-gray-600 hover:text-gray-900"
+                          >
+                            ← Retour
+                          </button>
+                        </motion.div>
+                      )}
+
+                      {/* Étape 4 : Nom et Prénom */}
+                      {step === 4 && (
+                        <motion.div
+                          key="step4"
+                          initial={{ opacity: 0, x: 50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -50 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
+                            Vos coordonnées
+                          </label>
+                          <div>
+                            <label className="block text-sm font-medium mb-2 text-gray-700">
+                              Nom et Prénom
+                            </label>
+                            <input
+                              type="text"
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                              placeholder="Jean Dupont"
+                              className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                              style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
+                              autoFocus
+                            />
+                          </div>
+                          <div className="flex gap-3 mt-6">
+                            <button
+                              type="button"
+                              onClick={prevStep}
+                              className="flex-1 py-3 text-sm font-semibold text-gray-600 border-2 border-gray-300 rounded-lg hover:bg-gray-50"
+                            >
+                              ← Retour
+                            </button>
+                            <button
+                              type="button"
+                              onClick={nextStep}
+                              disabled={!firstName}
+                              className="flex-1 py-3 text-sm font-bold text-white rounded-lg transition disabled:opacity-50"
+                              style={{ backgroundColor: '#00A3E0' }}
+                            >
+                              Suivant →
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* Étape 5 : Téléphone */}
+                      {step === 5 && (
+                        <motion.div
+                          key="step5"
+                          initial={{ opacity: 0, x: 50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -50 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
+                            Dernière étape !
+                          </label>
+                          <div>
+                            <label className="block text-sm font-medium mb-2 text-gray-700">
+                              Téléphone
+                            </label>
+                            <input
+                              type="tel"
+                              value={phone}
+                              onChange={(e) => setPhone(e.target.value)}
+                              placeholder="+352 ..."
+                              className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                              style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
+                              autoFocus
+                            />
+                          </div>
+                          <p className="text-xs text-gray-500 mt-2 text-center">
+                            🔒 Vos données sont sécurisées et confidentielles
+                          </p>
+                          <div className="flex gap-3 mt-6">
+                            <button
+                              type="button"
+                              onClick={prevStep}
+                              className="flex-1 py-3 text-sm font-semibold text-gray-600 border-2 border-gray-300 rounded-lg hover:bg-gray-50"
+                            >
+                              ← Retour
+                            </button>
+                            <button
+                              type="submit"
+                              disabled={!phone || isSubmitting}
+                              className="flex-1 py-3 text-sm font-bold text-white rounded-lg transition disabled:opacity-50"
+                              style={{ backgroundColor: '#ED1C24' }}
+                            >
+                              {isSubmitting ? "Envoi..." : "Valider ✓"}
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </form>
                 </>
               ) : (

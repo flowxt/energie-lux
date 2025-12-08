@@ -6,7 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { interest, firstName, phone } = body;
+    const { interest, propertyType, ownership, firstName, phone } = body;
 
     // Mapping des valeurs du formulaire
     const interestLabels: { [key: string]: string } = {
@@ -14,6 +14,16 @@ export async function POST(request: Request) {
       'pompe': 'Pompe à chaleur',
       'isolation': 'Isolation',
       'borne': 'Borne de recharge automobile'
+    };
+
+    const propertyTypeLabels: { [key: string]: string } = {
+      'maison': 'Maison individuelle',
+      'appartement': 'Appartement'
+    };
+
+    const ownershipLabels: { [key: string]: string } = {
+      'proprietaire': 'Propriétaire',
+      'locataire': 'Locataire'
     };
 
     const data = await resend.emails.send({
@@ -56,8 +66,18 @@ export async function POST(request: Request) {
                   </div>
                   
                   ${firstName ? `
-                    <div class="label">👤 Prénom</div>
+                    <div class="label">👤 Nom et Prénom</div>
                     <div class="value" style="font-size: 18px;"><strong>${firstName}</strong></div>
+                  ` : ''}
+
+                  ${propertyType ? `
+                    <div class="label">🏠 Type de propriété</div>
+                    <div class="value">${propertyTypeLabels[propertyType] || propertyType}</div>
+                  ` : ''}
+
+                  ${ownership ? `
+                    <div class="label">👥 Statut</div>
+                    <div class="value">${ownershipLabels[ownership] || ownership}</div>
                   ` : ''}
                 </div>
 
