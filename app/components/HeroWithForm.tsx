@@ -65,18 +65,18 @@ export default function HeroWithForm() {
           >
             {/* Titre CHOC avec montant */}
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="block text-yellow-300 text-6xl lg:text-7xl mb-3">Jusqu&apos;à 11 200€</span>
-              <span className="text-white text-3xl lg:text-4xl">d&apos;aides pour votre </span>
-              <span className="text-cyan-300 text-3xl lg:text-4xl">rénovation énergétique 🇱🇺</span>
+              <span className="block text-yellow-300 text-4xl sm:text-5xl lg:text-7xl mb-3 whitespace-nowrap">Jusqu&apos;à 11 200€</span>
+              <span className="text-white text-2xl sm:text-3xl lg:text-4xl">d&apos;aides pour votre </span>
+              <span className="text-cyan-300 text-2xl sm:text-3xl lg:text-4xl">rénovation énergétique 🇱🇺</span>
             </h1>
             
             {/* Stat choc */}
             <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border-2 border-white/30">
-              <p className="text-2xl font-bold text-yellow-300">
-                ✅ 98% de nos clients obtiennent au moins 5 000€
+              <p className="text-xl sm:text-2xl font-bold text-yellow-300">
+                ✅ 98% de nos clients obtiennent au moins <span className="whitespace-nowrap">5 000€</span>
               </p>
-              <p className="text-lg mt-2">
-                💰 Économisez jusqu&apos;à 800€/an sur vos factures
+              <p className="text-base sm:text-lg mt-2">
+                💰 Économisez jusqu&apos;à <span className="whitespace-nowrap">800€/an</span> sur vos factures
               </p>
             </div>
 
