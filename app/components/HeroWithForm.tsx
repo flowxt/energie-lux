@@ -65,27 +65,23 @@ export default function HeroWithForm() {
           >
             {/* Titre principal avec couleurs Luxembourg */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="block mb-2" style={{ color: '#ED1C24' }}>Calculez vos droits</span>
-              <span className="block mb-2" style={{ color: '#00A3E0' }}>aux aides financières</span>
-              <span className="block text-white">pour votre rénovation énergétique</span>
+              <span className="block mb-2" style={{ color: '#ED1C24' }}>Calcul des aides</span>
+              <span className="block mb-2" style={{ color: '#00A3E0' }}>disponibles</span>
+              <span className="block text-white">au Luxembourg</span>
             </h1>
-            
-            <p className="text-xl lg:text-2xl text-white/90">
-              Nous identifions pour vous toutes les aides disponibles :
-            </p>
 
-            <ul className="space-y-4 text-lg">
-              <li className="flex items-start gap-3">
-                <span className="text-2xl">✓</span>
-                <span>Aides de l&apos;État (klima bonus)</span>
+            <ul className="space-y-5 text-xl lg:text-2xl font-semibold">
+              <li className="flex items-start gap-4">
+                <span className="text-3xl">✓</span>
+                <span>Aides État</span>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-2xl">✓</span>
-                <span>Aides du ministère du logement (topup social)</span>
+              <li className="flex items-start gap-4">
+                <span className="text-3xl">✓</span>
+                <span>Aides Commune</span>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-2xl">✓</span>
-                <span>Aides de votre commune (Eco prêt)</span>
+              <li className="flex items-start gap-4">
+                <span className="text-3xl">✓</span>
+                <span>Aides sociales</span>
               </li>
             </ul>
           </motion.div>
