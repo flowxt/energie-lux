@@ -154,7 +154,7 @@ export default function HeroWithForm() {
                       Testez votre éligibilité
                     </h2>
                     <p className="text-gray-600 text-sm">
-                      Gratuit • Sans engagement • Réponse rapide
+                      Réponse rapide
                     </p>
                   </div>
 
@@ -432,7 +432,7 @@ export default function HeroWithForm() {
             {/* Badge certification */}
             <div className="mt-6 text-center">
               <p className="text-sm text-white/90">
-                🇱🇺 Programme certifié par l&apos;État du Luxembourg
+                🇱🇺 Programme subventionné par l&apos;État du Luxembourg
               </p>
             </div>
           </motion.div>
