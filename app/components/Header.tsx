@@ -109,54 +109,6 @@ export default function Header() {
         </div>
       )}
     </header>
-
-      {/* Bandeau promotionnel défilant - en dessous de la nav */}
-      <div className="bg-gradient-to-r from-blue-800 to-blue-900 py-3 overflow-hidden relative">
-        <motion.div
-          animate={{ x: [0, -2000] }}
-          transition={{ 
-            duration: 30, 
-            ease: "linear", 
-            repeat: Infinity,
-            repeatType: "loop"
-          }}
-          className="whitespace-nowrap flex"
-        >
-          {/* Première série de messages */}
-          <div className="inline-flex items-center">
-            {promotionalMessages.map((msg, index) => (
-              <span key={`msg-1-${index}`} className={`text-sm md:text-base font-semibold mx-8 ${index % 2 === 0 ? 'text-white' : 'text-white'}`}>
-                {msg.text}{" "}
-                <span className={`text-xl font-bold ${index % 2 === 0 ? 'text-red-400' : 'text-white'}`}>{msg.highlight}</span>{" "}
-                {msg.suffix}
-                <span className="mx-4 text-yellow-300">•</span>
-              </span>
-            ))}
-          </div>
-          {/* Deuxième série (dupliquée pour effet boucle continue) */}
-          <div className="inline-flex items-center">
-            {promotionalMessages.map((msg, index) => (
-              <span key={`msg-2-${index}`} className={`text-sm md:text-base font-semibold mx-8 ${index % 2 === 0 ? 'text-white' : 'text-white'}`}>
-                {msg.text}{" "}
-                <span className={`text-xl font-bold ${index % 2 === 0 ? 'text-red-400' : 'text-white'}`}>{msg.highlight}</span>{" "}
-                {msg.suffix}
-                <span className="mx-4 text-yellow-300">•</span>
-              </span>
-            ))}
-          </div>
-          {/* Troisième série (pour assurer la continuité) */}
-          <div className="inline-flex items-center">
-            {promotionalMessages.map((msg, index) => (
-              <span key={`msg-3-${index}`} className={`text-sm md:text-base font-semibold mx-8 ${index % 2 === 0 ? 'text-white' : 'text-white'}`}>
-                {msg.text}{" "}
-                <span className={`text-xl font-bold ${index % 2 === 0 ? 'text-red-400' : 'text-white'}`}>{msg.highlight}</span>{" "}
-                {msg.suffix}
-                <span className="mx-4 text-yellow-300">•</span>
-              </span>
-            ))}
-          </div>
-        </motion.div>
-      </div>
     </>
   );
 }
