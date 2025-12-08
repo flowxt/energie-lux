@@ -14,9 +14,9 @@ export default function Home() {
     <>
       <Header />
       <HeroWithForm />
+      <AidExamples />
       <ServicesGrid />
       <TrustBanner />
-      <AidExamples />
       <HowItWorks />
       <RenovationServices />
       <WhyUs />

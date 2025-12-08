@@ -61,29 +61,65 @@ export default function HeroWithForm() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8 order-2 lg:order-1"
+            className="space-y-10 order-2 lg:order-1"
           >
-            {/* Titre principal avec couleurs Luxembourg */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="block mb-2" style={{ color: '#ED1C24' }}>Calcul des aides</span>
-              <span className="block mb-2" style={{ color: '#00A3E0' }}>disponibles</span>
-              <span className="block text-white">au Luxembourg</span>
+            {/* Titre principal stylé */}
+            <div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+                <span className="block bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent drop-shadow-lg">
+                  Calcul des aides disponibles
+                </span>
+                <span className="block bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent drop-shadow-lg">
+                  au Luxembourg
+                </span>
             </h1>
+              <div className="h-1 w-24 bg-gradient-to-r from-red-500 to-blue-500 rounded-full"></div>
+            </div>
 
-            <ul className="space-y-5 text-xl lg:text-2xl font-semibold">
-              <li className="flex items-start gap-4">
-                <span className="text-3xl">✓</span>
-                <span>Aides État</span>
-              </li>
-              <li className="flex items-start gap-4">
-                <span className="text-3xl">✓</span>
-                <span>Aides Commune</span>
-              </li>
-              <li className="flex items-start gap-4">
-                <span className="text-3xl">✓</span>
-                <span>Aides sociales</span>
-              </li>
-            </ul>
+            {/* Liste des aides stylée avec cartes */}
+            <div className="space-y-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border-l-4 border-red-500 hover:bg-white/15 transition-all"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-red-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                    ✓
+                  </div>
+                  <span className="text-2xl lg:text-3xl font-bold">Aides État</span>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border-l-4 border-blue-500 hover:bg-white/15 transition-all"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                    ✓
+                  </div>
+                  <span className="text-2xl lg:text-3xl font-bold">Aides Commune</span>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border-l-4 border-cyan-400 hover:bg-white/15 transition-all"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-cyan-400 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                    ✓
+                  </div>
+                  <span className="text-2xl lg:text-3xl font-bold">Aides sociales</span>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
 
           {/* Colonne droite : FORMULAIRE ULTRA-SIMPLIFIÉ - PREMIER sur mobile */}
@@ -128,13 +164,13 @@ export default function HeroWithForm() {
                     </div>
 
                     {/* Nom et Prénom */}
-                    <div>
+                      <div>
                       <label className="block text-sm font-medium mb-2 text-gray-700">
                         Nom et Prénom
-                      </label>
-                      <input
-                        type="text"
-                        required
+                        </label>
+                        <input
+                          type="text"
+                          required
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         placeholder="Jean Dupont"
@@ -144,30 +180,30 @@ export default function HeroWithForm() {
                     </div>
 
                     {/* Téléphone */}
-                    <div>
+                        <div>
                       <label className="block text-sm font-medium mb-2 text-gray-700">
                         Téléphone
-                      </label>
-                      <input
-                        type="tel"
-                        required
+                        </label>
+                        <input
+                          type="tel"
+                          required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+352 ..."
+                          placeholder="+352 ..."
                         className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                         style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
                       />
                     </div>
 
                     {/* Bouton */}
-                    <button
+                      <button
                       type="submit"
                       disabled={!firstName || !phone || isSubmitting}
                       className="w-full rounded-lg px-6 py-4 text-lg font-bold text-white shadow-lg transition hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
-                      style={{ backgroundColor: '#ED1C24' }}
-                    >
+                        style={{ backgroundColor: '#ED1C24' }}
+                      >
                       {isSubmitting ? "Envoi en cours..." : "Tester mon éligibilité"}
-                    </button>
+                      </button>
 
                     {/* Réassurance */}
                     <p className="text-center text-xs text-gray-500">
@@ -177,21 +213,21 @@ export default function HeroWithForm() {
                 </>
               ) : (
                 /* Page de confirmation */
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
                   className="text-center py-12"
-                >
+                  >
                   <div className="w-20 h-20 mx-auto rounded-full flex items-center justify-center text-5xl mb-6" style={{ backgroundColor: '#E6F7FF' }}>
                     ✅
-                  </div>
-                  <h3 className="text-3xl font-bold mb-4" style={{ color: '#003D7A' }}>
+                      </div>
+                      <h3 className="text-3xl font-bold mb-4" style={{ color: '#003D7A' }}>
                     Merci {firstName} !
-                  </h3>
+                      </h3>
                   <p className="text-lg text-gray-700">
                     Un expert vous rappelle au <strong style={{ color: '#ED1C24' }}>{phone}</strong> très rapidement
                   </p>
-                </motion.div>
+                  </motion.div>
                 )}
             </div>
 
