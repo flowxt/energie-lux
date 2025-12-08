@@ -4,15 +4,16 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function HeroWithForm() {
-  // Formulaire ULTRA-SIMPLIFIÉ - 1 seule ligne !
+  // Formulaire ULTRA-SIMPLIFIÉ avec prénom
   const [interest, setInterest] = useState("panneaux");
+  const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone) return;
+    if (!firstName || !phone) return;
 
     setIsSubmitting(true);
 
@@ -22,7 +23,7 @@ export default function HeroWithForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           interest,
-    firstName: "",
+          firstName,
           phone 
         }),
       });
@@ -148,13 +149,13 @@ export default function HeroWithForm() {
                     </p>
                   </div>
 
-                  {/* FORMULAIRE 1 LIGNE */}
+                  {/* FORMULAIRE SIMPLIFIÉ */}
                   <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Sélection projet */}
-                      <div>
+                    <div>
                       <label className="block text-sm font-bold mb-2" style={{ color: '#003D7A' }}>
                         Votre projet :
-                        </label>
+                      </label>
                       <select
                         value={interest}
                         onChange={(e) => setInterest(e.target.value)}
@@ -166,6 +167,22 @@ export default function HeroWithForm() {
                         <option value="isolation">🏠 Isolation</option>
                         <option value="borne">🚗 Borne de recharge</option>
                       </select>
+                    </div>
+
+                    {/* Nom et Prénom */}
+                    <div>
+                      <label className="block text-sm font-bold mb-2" style={{ color: '#003D7A' }}>
+                        Nom et Prénom :
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="Jean Dupont"
+                        className="w-full rounded-xl border-2 px-5 py-4 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-blue-200 transition"
+                        style={{ borderColor: '#00A3E0', color: '#003D7A' }}
+                      />
                     </div>
 
                     {/* Téléphone */}
@@ -187,7 +204,7 @@ export default function HeroWithForm() {
                     {/* Bouton ÉNORME */}
                       <button
                       type="submit"
-                      disabled={!phone || isSubmitting}
+                      disabled={!firstName || !phone || isSubmitting}
                       className="w-full rounded-xl px-8 py-5 text-2xl font-bold text-white shadow-2xl transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                         style={{ backgroundColor: '#ED1C24' }}
                       >
@@ -218,7 +235,7 @@ export default function HeroWithForm() {
                     ✅
                   </div>
                   <h3 className="text-4xl font-bold mb-4" style={{ color: '#003D7A' }}>
-                    Demande envoyée !
+                    Merci {firstName} !
                   </h3>
                   <p className="text-xl text-gray-700 mb-6">
                     Un expert vous rappelle au <strong className="text-red-600">{phone}</strong> sous 5 minutes ! ⚡
