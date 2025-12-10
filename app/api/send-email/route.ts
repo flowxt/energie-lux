@@ -6,18 +6,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { interest, propertyType, ownership, firstName, phone } = body;
+    const { propertyType, ownership, installations, postalCode, firstName, lastName, phone, email } = body;
 
     // Mapping des valeurs du formulaire
-    const interestLabels: { [key: string]: string } = {
-      'panneaux': 'Panneau solaire',
-      'pompe': 'Pompe à chaleur',
-      'isolation': 'Isolation',
-      'borne': 'Borne de recharge automobile'
-    };
-
     const propertyTypeLabels: { [key: string]: string } = {
-      'maison': 'Maison individuelle',
+      'maison': 'Maison',
       'appartement': 'Appartement'
     };
 
@@ -26,10 +19,22 @@ export async function POST(request: Request) {
       'locataire': 'Locataire'
     };
 
+    const installationLabels: { [key: string]: string } = {
+      'panneaux': 'Panneaux photovoltaïques',
+      'pompe': 'Pompe à chaleur',
+      'isolation-ext': 'Isolation thermique extérieur',
+      'isolation-int': 'Isolation interne',
+      'isolation-toit': 'Isolation de toiture'
+    };
+
+    const installationsText = Array.isArray(installations) 
+      ? installations.map((inst: string) => installationLabels[inst] || inst).join(', ')
+      : 'Non renseigné';
+
     const data = await resend.emails.send({
       from: 'Aides-Energie.lu <onboarding@resend.dev>',
       to: ['enrluxn@gmail.com'],
-      subject: `🇱🇺 LEAD URGENT - ${firstName || 'Prospect'} - ${interestLabels[interest] || interest}`,
+      subject: `🇱🇺 LEAD URGENT - ${firstName} ${lastName} - ${propertyTypeLabels[propertyType] || propertyType}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -56,7 +61,7 @@ export async function POST(request: Request) {
               
               <div class="content">
                 <div class="highlight">
-                  <strong style="font-size: 20px;">🎯 ${interestLabels[interest] || interest}</strong>
+                  <strong style="font-size: 20px;">🎯 ${installationsText}</strong>
                 </div>
 
                 <div class="info-block" style="border-left: 4px solid #ED1C24; background: #FFF5F5;">
@@ -65,19 +70,36 @@ export async function POST(request: Request) {
                     <a href="tel:${phone}" style="color: #ED1C24; text-decoration: none;">${phone}</a>
                   </div>
                   
-                  ${firstName ? `
-                    <div class="label">👤 Nom et Prénom</div>
-                    <div class="value" style="font-size: 18px;"><strong>${firstName}</strong></div>
+                  <div class="label">👤 Nom complet</div>
+                  <div class="value" style="font-size: 18px;"><strong>${firstName} ${lastName}</strong></div>
+
+                  ${email ? `
+                    <div class="label">📧 Email</div>
+                    <div class="value"><a href="mailto:${email}" style="color: #00A3E0;">${email}</a></div>
+                  ` : ''}
+
+                  ${postalCode ? `
+                    <div class="label">📍 Code postal</div>
+                    <div class="value">${postalCode}</div>
                   ` : ''}
 
                   ${propertyType ? `
-                    <div class="label">🏠 Type de propriété</div>
+                    <div class="label">🏠 Type de logement</div>
                     <div class="value">${propertyTypeLabels[propertyType] || propertyType}</div>
                   ` : ''}
 
                   ${ownership ? `
                     <div class="label">👥 Statut</div>
                     <div class="value">${ownershipLabels[ownership] || ownership}</div>
+                  ` : ''}
+
+                  ${installations && Array.isArray(installations) && installations.length > 0 ? `
+                    <div class="label">🔧 Installations souhaitées</div>
+                    <div class="value">
+                      <ul style="margin: 5px 0; padding-left: 20px;">
+                        ${installations.map((inst: string) => `<li>${installationLabels[inst] || inst}</li>`).join('')}
+                      </ul>
+                    </div>
                   ` : ''}
                 </div>
 

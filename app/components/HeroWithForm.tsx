@@ -6,15 +6,26 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function HeroWithForm() {
   // Formulaire par étapes
   const [step, setStep] = useState(1);
-  const [interest, setInterest] = useState("");
   const [propertyType, setPropertyType] = useState("");
   const [ownership, setOwnership] = useState("");
+  const [installations, setInstallations] = useState<string[]>([]);
+  const [postalCode, setPostalCode] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const totalSteps = 5;
+  const totalSteps = 6;
+
+  const toggleInstallation = (value: string) => {
+    if (installations.includes(value)) {
+      setInstallations(installations.filter(item => item !== value));
+    } else {
+      setInstallations([...installations, value]);
+    }
+  };
 
   const nextStep = () => {
     if (step < totalSteps) setStep(step + 1);
@@ -33,11 +44,14 @@ export default function HeroWithForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          interest,
           propertyType,
           ownership,
+          installations,
+          postalCode,
           firstName,
-          phone 
+          lastName,
+          phone,
+          email
         }),
       });
 
@@ -178,7 +192,7 @@ export default function HeroWithForm() {
                   {/* FORMULAIRE PAR ÉTAPES */}
                   <form onSubmit={handleSubmit}>
                     <AnimatePresence mode="wait">
-                      {/* Étape 1 : Projet */}
+                      {/* Étape 1 : Type de logement */}
                       {step === 1 && (
                         <motion.div
                           key="step1"
@@ -188,52 +202,11 @@ export default function HeroWithForm() {
                           transition={{ duration: 0.3 }}
                         >
                           <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
-                            Quel est votre projet ?
+                            Quel type de logement ?
                           </label>
                           <div className="grid grid-cols-1 gap-3">
                             {[
-                              { value: 'panneaux', label: 'Panneau solaire', icon: '☀️' },
-                              { value: 'pompe', label: 'Pompe à chaleur', icon: '♨️' },
-                              { value: 'isolation', label: 'Isolation', icon: '🏠' },
-                              { value: 'borne', label: 'Borne de recharge', icon: '🔌' }
-                            ].map((option) => (
-                              <button
-                                key={option.value}
-                                type="button"
-                                onClick={() => {
-                                  setInterest(option.value);
-                                  nextStep();
-                                }}
-                                className="flex items-center gap-3 p-4 rounded-xl border-2 transition-all hover:border-blue-500 hover:bg-blue-50 hover:shadow-md"
-                                style={{ 
-                                  borderColor: interest === option.value ? '#00A3E0' : '#d1d5db',
-                                  backgroundColor: interest === option.value ? '#E6F7FF' : 'white',
-                                  boxShadow: interest === option.value ? '0 4px 12px rgba(0,163,224,0.15)' : 'none'
-                                }}
-                              >
-                                <span className="text-3xl">{option.icon}</span>
-                                <span className="text-lg font-semibold" style={{ color: '#1f2937' }}>{option.label}</span>
-                              </button>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-
-                      {/* Étape 2 : Type de propriété */}
-                      {step === 2 && (
-                        <motion.div
-                          key="step2"
-                          initial={{ opacity: 0, x: 50 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -50 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
-                            Type de propriété
-                          </label>
-                          <div className="grid grid-cols-1 gap-3">
-                            {[
-                              { value: 'maison', label: 'Maison individuelle', icon: '🏡' },
+                              { value: 'maison', label: 'Maison', icon: '🏡' },
                               { value: 'appartement', label: 'Appartement', icon: '🏢' }
                             ].map((option) => (
                               <button
@@ -255,32 +228,25 @@ export default function HeroWithForm() {
                               </button>
                             ))}
                           </div>
-                          <button
-                            type="button"
-                            onClick={prevStep}
-                            className="mt-4 w-full py-2 text-sm text-gray-600 hover:text-gray-900"
-                          >
-                            ← Retour
-                          </button>
                         </motion.div>
                       )}
 
-                      {/* Étape 3 : Statut */}
-                      {step === 3 && (
+                      {/* Étape 2 : Statut */}
+                      {step === 2 && (
                         <motion.div
-                          key="step3"
+                          key="step2"
                           initial={{ opacity: 0, x: 50 }}
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: -50 }}
                           transition={{ duration: 0.3 }}
                         >
                           <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
-                            Vous êtes
+                            Vous êtes :
                           </label>
                           <div className="grid grid-cols-1 gap-3">
                             {[
                               { value: 'proprietaire', label: 'Propriétaire', icon: '👤' },
-                              { value: 'locataire', label: 'Locataire', icon: '🏠' }
+                              { value: 'locataire', label: 'Locataire', icon: '🔑' }
                             ].map((option) => (
                               <button
                                 key={option.value}
@@ -311,7 +277,74 @@ export default function HeroWithForm() {
                         </motion.div>
                       )}
 
-                      {/* Étape 4 : Nom et Prénom */}
+                      {/* Étape 3 : Installations (choix multiples) */}
+                      {step === 3 && (
+                        <motion.div
+                          key="step3"
+                          initial={{ opacity: 0, x: 50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -50 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <label className="block text-lg font-bold mb-2 text-center" style={{ color: '#003D7A' }}>
+                            Quelle installation pour le confort de votre maison ?
+                          </label>
+                          <p className="text-sm text-gray-600 text-center mb-4">
+                            Sélectionnez une ou plusieurs installations<br/>
+                            <span className="text-xs">Choisissez-en autant que vous voulez</span>
+                          </p>
+                          <div className="grid grid-cols-1 gap-3">
+                            {[
+                              { value: 'panneaux', label: 'Panneaux photovoltaïques', icon: '☀️', letter: 'A' },
+                              { value: 'pompe', label: 'Pompe à chaleur', icon: '♨️', letter: 'B' },
+                              { value: 'isolation-ext', label: 'Isolation thermique extérieur', icon: '🏠', letter: 'C' },
+                              { value: 'isolation-int', label: 'Isolation interne', icon: '🔨', letter: 'D' },
+                              { value: 'isolation-toit', label: 'Isolation de toiture', icon: '🏘️', letter: 'E' }
+                            ].map((option) => (
+                              <button
+                                key={option.value}
+                                type="button"
+                                onClick={() => toggleInstallation(option.value)}
+                                className="flex items-center gap-3 p-4 rounded-xl border-2 transition-all hover:border-blue-500 hover:bg-blue-50 hover:shadow-md"
+                                style={{ 
+                                  borderColor: installations.includes(option.value) ? '#00A3E0' : '#d1d5db',
+                                  backgroundColor: installations.includes(option.value) ? '#E6F7FF' : 'white',
+                                  boxShadow: installations.includes(option.value) ? '0 4px 12px rgba(0,163,224,0.15)' : 'none'
+                                }}
+                              >
+                                <div className="flex items-center justify-center w-10 h-10 rounded-lg font-bold text-white" style={{ backgroundColor: '#003D7A' }}>
+                                  {option.letter}
+                                </div>
+                                <span className="text-3xl">{option.icon}</span>
+                                <span className="text-base font-semibold flex-1 text-left" style={{ color: '#1f2937' }}>{option.label}</span>
+                                {installations.includes(option.value) && (
+                                  <span className="text-2xl">✓</span>
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                          <div className="flex gap-3 mt-6">
+                            <button
+                              type="button"
+                              onClick={prevStep}
+                              className="flex-1 py-3 text-sm font-semibold text-gray-600 border-2 border-gray-300 rounded-lg hover:bg-gray-50"
+                            >
+                              ← Retour
+                            </button>
+                            <button
+                              type="button"
+                              onClick={nextStep}
+                              disabled={installations.length === 0}
+                              className="flex-1 py-3 text-sm font-bold text-white rounded-lg transition disabled:opacity-50"
+                              style={{ backgroundColor: '#00A3E0' }}
+                            >
+                              Suivant →
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* Étape 4 : Code postal */}
                       {step === 4 && (
                         <motion.div
                           key="step4"
@@ -321,18 +354,19 @@ export default function HeroWithForm() {
                           transition={{ duration: 0.3 }}
                         >
                           <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
-                            Vos coordonnées
+                            Votre code postal
                           </label>
                           <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-700">
-                              Nom et Prénom
+                            <label className="flex items-center gap-2 text-sm font-medium mb-2 text-gray-700">
+                              <span className="text-2xl">📍</span>
+                              Code postal
                             </label>
                             <input
                               type="text"
-                              value={firstName}
-                              onChange={(e) => setFirstName(e.target.value)}
-                              placeholder="Jean Dupont"
-                              className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                              value={postalCode}
+                              onChange={(e) => setPostalCode(e.target.value)}
+                              placeholder="Ex: 1234"
+                              className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-lg"
                               style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
                               autoFocus
                             />
@@ -348,7 +382,7 @@ export default function HeroWithForm() {
                             <button
                               type="button"
                               onClick={nextStep}
-                              disabled={!firstName}
+                              disabled={!postalCode}
                               className="flex-1 py-3 text-sm font-bold text-white rounded-lg transition disabled:opacity-50"
                               style={{ backgroundColor: '#00A3E0' }}
                             >
@@ -358,7 +392,7 @@ export default function HeroWithForm() {
                         </motion.div>
                       )}
 
-                      {/* Étape 5 : Téléphone */}
+                      {/* Étape 5 : Vos informations */}
                       {step === 5 && (
                         <motion.div
                           key="step5"
@@ -368,23 +402,102 @@ export default function HeroWithForm() {
                           transition={{ duration: 0.3 }}
                         >
                           <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
-                            Dernière étape !
+                            Vos informations
                           </label>
-                          <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-700">
-                              Téléphone
-                            </label>
-                            <input
-                              type="tel"
-                              value={phone}
-                              onChange={(e) => setPhone(e.target.value)}
-                              placeholder="+352 ..."
-                              className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                              style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
-                              autoFocus
-                            />
+                          <div className="space-y-4">
+                            <div>
+                              <label className="block text-sm font-medium mb-2 text-gray-700">
+                                Prénom
+                              </label>
+                              <input
+                                type="text"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                placeholder="Jean"
+                                className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                                style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
+                                autoFocus
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium mb-2 text-gray-700">
+                                Nom de famille
+                              </label>
+                              <input
+                                type="text"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                placeholder="Dupont"
+                                className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                                style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
+                              />
+                            </div>
                           </div>
-                          <p className="text-xs text-gray-500 mt-2 text-center">
+                          <div className="flex gap-3 mt-6">
+                            <button
+                              type="button"
+                              onClick={prevStep}
+                              className="flex-1 py-3 text-sm font-semibold text-gray-600 border-2 border-gray-300 rounded-lg hover:bg-gray-50"
+                            >
+                              ← Retour
+                            </button>
+                            <button
+                              type="button"
+                              onClick={nextStep}
+                              disabled={!firstName || !lastName}
+                              className="flex-1 py-3 text-sm font-bold text-white rounded-lg transition disabled:opacity-50"
+                              style={{ backgroundColor: '#00A3E0' }}
+                            >
+                              Suivant →
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* Étape 6 : Dernière étape - Contact */}
+                      {step === 6 && (
+                        <motion.div
+                          key="step6"
+                          initial={{ opacity: 0, x: 50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -50 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <label className="block text-lg font-bold mb-4 text-center" style={{ color: '#003D7A' }}>
+                            Dernière étape : Vos informations
+                          </label>
+                          <div className="space-y-4">
+                            <div>
+                              <label className="flex items-center gap-2 text-sm font-medium mb-2 text-gray-700">
+                                <span className="text-2xl">📞</span>
+                                Numéro de téléphone
+                              </label>
+                              <input
+                                type="tel"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                placeholder="+352 ..."
+                                className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                                style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
+                                autoFocus
+                              />
+                            </div>
+                            <div>
+                              <label className="flex items-center gap-2 text-sm font-medium mb-2 text-gray-700">
+                                <span className="text-2xl">📧</span>
+                                Email
+                              </label>
+                              <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="exemple@email.lu"
+                                className="w-full rounded-lg border-2 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                                style={{ borderColor: '#e5e7eb', color: '#1f2937' }}
+                              />
+                            </div>
+                          </div>
+                          <p className="text-xs text-gray-500 mt-4 text-center">
                             🔒 Vos données sont sécurisées et confidentielles
                           </p>
                           <div className="flex gap-3 mt-6">
@@ -397,7 +510,7 @@ export default function HeroWithForm() {
                             </button>
                             <button
                               type="submit"
-                              disabled={!phone || isSubmitting}
+                              disabled={!phone || !email || isSubmitting}
                               className="flex-1 py-3 text-sm font-bold text-white rounded-lg transition disabled:opacity-50"
                               style={{ backgroundColor: '#ED1C24' }}
                             >
