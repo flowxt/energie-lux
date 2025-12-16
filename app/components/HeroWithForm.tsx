@@ -14,7 +14,6 @@ export default function HeroWithForm() {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const totalSteps = 6;
@@ -56,18 +55,8 @@ export default function HeroWithForm() {
       });
 
       if (response.ok) {
-        // Tracking Google Ads Conversion
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (window as any).gtag('event', 'conversion', {
-            'send_to': process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_ID,
-            'value': 1.0,
-            'currency': 'EUR',
-            'transaction_id': Date.now().toString()
-          });
-        }
-        setIsSubmitted(true);
+        // Redirection vers la page de remerciement
+        window.location.href = '/merci';
       } else {
         alert("Une erreur s'est produite. Veuillez réessayer.");
       }
@@ -159,18 +148,15 @@ export default function HeroWithForm() {
             className="order-1 lg:order-2"
           >
             <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-10">
-              
-              {!isSubmitted ? (
-                <>
-                  {/* Titre du formulaire */}
-                  <div className="text-center mb-6">
-                    <h2 className="text-3xl font-bold mb-3" style={{ color: '#003D7A' }}>
-                      Testez votre éligibilité
-                    </h2>
-                    <p className="text-gray-600 text-sm">
-                      Réponse rapide
-                    </p>
-                  </div>
+              {/* Titre du formulaire */}
+              <div className="text-center mb-6">
+                <h2 className="text-3xl font-bold mb-3" style={{ color: '#003D7A' }}>
+                  Testez votre éligibilité
+                </h2>
+                <p className="text-gray-600 text-sm">
+                  Réponse rapide
+                </p>
+              </div>
 
                   {/* Barre de progression */}
                   <div className="mb-8">
@@ -521,25 +507,6 @@ export default function HeroWithForm() {
                       )}
                     </AnimatePresence>
                   </form>
-                </>
-              ) : (
-                /* Page de confirmation */
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
-                  >
-                  <div className="w-20 h-20 mx-auto rounded-full flex items-center justify-center text-5xl mb-6" style={{ backgroundColor: '#E6F7FF' }}>
-                    ✅
-                      </div>
-                      <h3 className="text-3xl font-bold mb-4" style={{ color: '#003D7A' }}>
-                    Merci {firstName} !
-                      </h3>
-                  <p className="text-lg text-gray-700">
-                    Un expert vous rappelle au <strong style={{ color: '#ED1C24' }}>{phone}</strong> très rapidement
-                  </p>
-                  </motion.div>
-                )}
             </div>
 
             {/* Badge certification */}
