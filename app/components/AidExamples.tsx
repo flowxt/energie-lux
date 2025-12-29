@@ -36,7 +36,7 @@ export default function AidExamples() {
           className="mb-12 text-center"
         >
           <h2 className="text-3xl font-bold mb-4" style={{ color: '#003D7A' }}>
-            Exemples d'aides obtenues
+          Exemples d'aides obtenues
           </h2>
           <div className="flex items-center justify-center gap-2 text-gray-600">
             <Image src="/lux.png" alt="Luxembourg" width={28} height={19} />

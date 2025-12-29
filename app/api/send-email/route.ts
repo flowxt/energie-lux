@@ -31,6 +31,7 @@ export async function POST(request: Request) {
       ? installations.map((inst: string) => installationLabels[inst] || inst).join(', ')
       : 'Non renseigné';
 
+    // 📧 ÉTAPE 1 : Envoi de l'email
     const data = await resend.emails.send({
       from: 'Aides-Energie.lu <onboarding@resend.dev>',
       to: ['enrluxn@gmail.com'],
@@ -122,6 +123,56 @@ export async function POST(request: Request) {
         </html>
       `,
     });
+
+    // 🔄 ÉTAPE 2 : Envoi vers Make.com → Pipedrive
+    try {
+      const webhookUrl = process.env.MAKE_WEBHOOK_URL;
+      
+      if (!webhookUrl) {
+        console.warn('⚠️ MAKE_WEBHOOK_URL non configuré dans .env.local');
+        return NextResponse.json({ success: true, data, webhook: 'skipped' });
+      }
+      
+      const webhookData = {
+        // Informations personnelles
+        firstName,
+        lastName,
+        phone,
+        email,
+        
+        // Informations du bien
+        propertyType,
+        propertyTypeLabel: propertyTypeLabels[propertyType] || propertyType,
+        ownership,
+        ownershipLabel: ownershipLabels[ownership] || ownership,
+        postalCode,
+        
+        // Installations demandées
+        installations,
+        installationsLabels: Array.isArray(installations) 
+          ? installations.map((inst: string) => installationLabels[inst] || inst)
+          : [],
+        installationsText,
+        
+        // Métadonnées
+        source: 'aides-energie.lu',
+        timestamp: new Date().toISOString(),
+        locale: 'fr-LU'
+      };
+
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(webhookData),
+      });
+
+      console.log('✅ Données envoyées vers Make.com → Pipedrive');
+    } catch (webhookError) {
+      // Si le webhook échoue, on log l'erreur mais on ne bloque pas l'email
+      console.error('⚠️ Erreur webhook Make.com (email envoyé quand même):', webhookError);
+    }
 
     return NextResponse.json({ success: true, data });
   } catch (error) {
